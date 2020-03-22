@@ -13,7 +13,7 @@ markdown = "*"
 faker = "*"
 django-pure-pagination = "*"
 elasticsearch = ">=2,<3"
-django-haystack = "*"
+django-haystack = "==2.8.1"
 
 [requires]
 python_version = "3.7"
