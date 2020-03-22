@@ -10,7 +10,6 @@ coverage = "*"
 [packages]
 django = "==2.2.3"
 markdown = "*"
-gunicorn = "*"
 faker = "*"
 django-pure-pagination = "*"
 elasticsearch = ">=2,<3"
