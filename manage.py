@@ -19,3 +19,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+# pipenv run fab -H yangxg@114.116.232.108 --prompt-for-login-password -p deploy
