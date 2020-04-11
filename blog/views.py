@@ -50,6 +50,9 @@ def detail(request, pk):
     #                                   'markdown.extensions.toc'
     #                               ])
 
+    # 阅读量 +1
+    post.increase_views()
+
     # 侧边栏插入一个目录
     md = markdown.Markdown(extensions=[
         'markdown.extensions.extra',

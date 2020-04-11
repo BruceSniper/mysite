@@ -110,3 +110,10 @@ class Post(models.Model):
     # 记得从 django.urls 中导入 reverse 函数
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})
+
+    # 新增 views 字段记录阅读量
+    views = models.PositiveIntegerField(default=0, editable=False)
+
+    def increase_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
