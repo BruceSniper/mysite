@@ -5,6 +5,7 @@ import markdown
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 import re
+from django.views.generic import ListView
 # Create your views here.
 
 
@@ -67,5 +68,10 @@ def detail(request, pk):
     post.toc = m.group(1) if m is not None else ''
 
     return render(request, 'blog/detail.html', context={'post': post})
+
+class IndexView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
 
 
