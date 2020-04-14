@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Black &amp; White</title>
+    <title>Bruce & Code</title>
 
     <!-- meta -->
     <meta charset="UTF-8">
@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-5 col-xs-8">
                 <div class="logo">
-                    <h1><a href="index.html"><b>Black</b> &amp; White</a></h1>
+                    <h1><a href="index.html"><b>Bruce</b> &amp; Code</a></h1>
                 </div>
             </div><!-- col-md-4 -->
             <div class="col-md-8 col-sm-7 col-xs-4">
@@ -93,26 +93,10 @@
                 {% empty %}
                     <div class="no-post">暂时还没有发布的文章！</div>
                 {% endfor %}
-                <!-- 简单分页效果
-                <div class="pagination-simple">
-                    <a href="#">上一页</a>
-                    <span class="current">第 6 页 / 共 11 页</span>
-                    <a href="#">下一页</a>
-                </div>
-                -->
-                <div class="pagination">
-                    <ul>
-                        <li><a href="">1</a></li>
-                        <li><a href="">...</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li class="current"><a href="">6</a></li>
-                        <li><a href="">7</a></li>
-                        <li><a href="">8</a></li>
-                        <li><a href="">...</a></li>
-                        <li><a href="">11</a></li>
-                    </ul>
-                </div>
+                {% if is_paginated %}
+                    {{ page_obj.render }}
+                {% endif %}
+
             {% endblock main %}
             <aside class="col-md-4">
                 <div class="widget widget-recent-posts">
@@ -205,9 +189,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p class="copyright">&copy 2017 - 采集自<a href="http://www.cssmoban.com/"
-                                                        target="_blank" title="模板之家">模板之家</a>
-                    - 由<a href="http://zmrenwu.com/" title="网页模板" target="_blank">追梦人物的博客</a>修改
+                <p class="copyright"><a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">苏ICP备20004895号</a>
                 </p>
             </div>
         </div>
@@ -231,3 +213,5 @@
 
 </body>
 </html>
+
+
