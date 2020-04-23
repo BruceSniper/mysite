@@ -7,6 +7,7 @@ from markdown.extensions.toc import TocExtension
 import re
 from django.views.generic import ListView, DetailView
 from pure_pagination.mixins import PaginationMixin
+from django.contrib import messages
 # Create your views here.
 
 
@@ -21,6 +22,18 @@ def index(request):
     #     'welcome': '欢迎访问我的博客首页'
     # })
     return render(request, 'blog/index.html', context={'post_list': post_list})
+
+
+def search(request):
+    q = request.GET.get('q')
+
+    if not q:
+        error_msg = "请输入搜索关键词"
+        messages.add_message(request, messages.ERROR, error_msg, extra_tags='danger')
+        return redirect('blog:index')
+
+    post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+    return render(request, 'blog/index.html', {'post_list': post_list})
 
 
 def archive(request, year, month):
