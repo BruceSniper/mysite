@@ -8,6 +8,7 @@ import re
 from django.views.generic import ListView, DetailView
 from pure_pagination.mixins import PaginationMixin
 from django.contrib import messages
+from django.db.models import Q
 # Create your views here.
 
 
