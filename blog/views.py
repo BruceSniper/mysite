@@ -72,8 +72,8 @@ def detail(request, pk):
 
 class IndexView(PaginationMixin, ListView):
     model = Post
-    template_name = 'blog/index.html'
-    context_object_name = 'post_list'
+    template_name = "blog/index.html"
+    context_object_name = "post_list"
     # 指定 paginate_by 属性后开启分页功能，其值代表每一页包含多少篇文章
     paginate_by = 10
 
@@ -98,8 +98,8 @@ class TagView(IndexView):
 class PostDetailView(DetailView):
     # 这些属性的含义和 ListView 是一样的
     model = Post
-    template_name = 'blog/detail.html'
-    context_object_name = 'post'
+    template_name = "blog/detail.html"
+    context_object_name = "post"
 
     def get(self, request, *args, **kwargs):
         # 覆写 get 方法的目的是因为每当文章被访问一次，就得将文章阅读量 +1
