@@ -66,7 +66,7 @@ def detail(request, pk):
     post.body = md.convert(post.body)
     # post.toc = md.toc
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
-    post.toc = m.group(1) if m is not None else ''
+    # post.toc = m.group(1) if m is not None else ''
 
     return render(request, 'blog/detail.html', context={'post': post})
 
