@@ -10,6 +10,20 @@ from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 from django.utils.functional import cached_property
 
+def generate_rich_content(value):
+    md = markdown.Markdown(
+        extensions=[
+            "markdown.extensions.extra",
+            "markdown.extensions.codehilite",
+            # 记得在顶部引入 TocExtension 和 slugify
+            TocExtension(slugify=slugify),
+        ]
+    )
+    content = md.convert(value)
+    m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
+    toc = m.group(1) if m is not None else ""
+    return {"content": content, "toc": toc}
+
 class Category(models.Model):
     """
         django 要求模型必须继承 models.Model 类。
@@ -134,16 +148,3 @@ class Post(models.Model):
         return generate_rich_content(self.body)
 
 
-def generate_rich_content(value):
-    md = markdown.Markdown(
-        extensions=[
-            "markdown.extensions.extra",
-            "markdown.extensions.codehilite",
-            # 记得在顶部引入 TocExtension 和 slugify
-            TocExtension(slugify=slugify),
-        ]
-    )
-    content = md.convert(value)
-    m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
-    toc = m.group(1) if m is not None else ""
-    return {"content": content, "toc": toc}
