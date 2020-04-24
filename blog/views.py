@@ -141,6 +141,6 @@ class PostDetailView(DetailView):
         post.body = md.convert(post.body)
 
         m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
-        post.toc = m.group(1) if m is not None else ''
+        # post.toc = m.group(1) if m is not None else ''
 
         return post
