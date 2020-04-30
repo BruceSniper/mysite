@@ -19,11 +19,15 @@ from django.urls import path, include
 import sys
 sys.path.append("..")
 from blog.feeds import AllPostsRssFeed
+from rest_framework import routers
 
+router = routers.DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('', include('comments.urls')),
     # 记得在顶部引入 AllPostsRssFeed
     path('all/rss/', AllPostsRssFeed(), name='rss'),
+    path("api/", include(router.urls)),
+    path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

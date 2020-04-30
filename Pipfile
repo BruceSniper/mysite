@@ -1,6 +1,6 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+url = "https://pypi.douban.com/simple/"
 verify_ssl = true
 
 [dev-packages]
@@ -15,6 +15,9 @@ django-pure-pagination = "*"
 elasticsearch = ">=2,<3"
 gunicorn = "*"
 django-simpleui = {index = "https://pypi.tuna.tsinghua.edu.cn/simple",version = "*"}
+django-haystack = "*"
+djangorestframework = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.7"
