@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 from django.utils.functional import cached_property
 
+
 def generate_rich_content(value):
     md = markdown.Markdown(
         extensions=[
@@ -23,6 +24,7 @@ def generate_rich_content(value):
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
     toc = m.group(1) if m is not None else ""
     return {"content": content, "toc": toc}
+
 
 class Category(models.Model):
     """
@@ -42,6 +44,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Tag(models.Model):
     """
