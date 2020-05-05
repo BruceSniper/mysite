@@ -16,13 +16,19 @@ from django.db.models import Q
 # def index(request):
 #     return HttpResponse(欢迎访问我的博客首页)
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+
+from .models import Post
+from .serializers import PostListSerializer
+
+
+@api_view(http_method_names=["GET"])
 def index(request):
     post_list = Post.objects.all().order_by('-created_time')
-    # return render(request, 'blog/index.html', context={
-    #     'title': '我的博客首页',
-    #     'welcome': '欢迎访问我的博客首页'
-    # })
-    return render(request, 'blog/index.html', context={'post_list': post_list})
+    serializer = PostListSerializer(post_list, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 def search(request):
