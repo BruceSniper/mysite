@@ -7,6 +7,9 @@ from markdown.extensions.toc import TocExtension
 import re
 from django.views.generic import ListView, DetailView
 from pure_pagination.mixins import PaginationMixin
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny
 from django.contrib import messages
 from django.db.models import Q
 # Create your views here.
@@ -24,11 +27,11 @@ from .models import Post
 from .serializers import PostListSerializer
 
 
-@api_view(http_method_names=["GET"])
-def index(request):
-    post_list = Post.objects.all().order_by('-created_time')
-    serializer = PostListSerializer(post_list, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+# @api_view(http_method_names=["GET"])
+# def index(request):
+#     post_list = Post.objects.all().order_by('-created_time')
+#     serializer = PostListSerializer(post_list, many=True)
+#     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 def search(request):
@@ -150,3 +153,10 @@ class PostDetailView(DetailView):
         # post.toc = m.group(1) if m is not None else ''
 
         return post
+
+
+class IndexPostListAPIView(ListAPIView):
+    serializer_class = PostListSerializer
+    queryset = Post.objects.all()
+    pagination_class = PageNumberPagination
+    permission_classes = [AllowAny]
