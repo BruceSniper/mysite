@@ -20,8 +20,11 @@ import sys
 sys.path.append("..")
 from blog.feeds import AllPostsRssFeed
 from rest_framework import routers
+import blog.views
 
 router = routers.DefaultRouter()
+router.register(r"posts", blog.views.PostViewSet, basename="post")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),

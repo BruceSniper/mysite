@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 # 引入 Category, Tag 类
 from .models import Post, Category, Tag
 import markdown
@@ -10,8 +10,7 @@ from pure_pagination.mixins import PaginationMixin
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
-from rest_framework import viewsets
-from rest_framework import mixins
+from rest_framework import viewsets, mixins, status
 from django.contrib import messages
 from django.db.models import Q
 # Create your views here.
@@ -23,10 +22,8 @@ from django.db.models import Q
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
 
-from .models import Post
-from .serializers import PostListSerializer
+from .serializers import PostListSerializer, PostRetrieveSerializer
 
 
 # @api_view(http_method_names=["GET"])
@@ -162,3 +159,23 @@ class IndexPostListAPIView(ListAPIView):
     queryset = Post.objects.all()
     pagination_class = PageNumberPagination
     permission_classes = [AllowAny]
+
+
+class PostViewSet(
+    mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
+):
+    serializer_class = PostListSerializer
+    queryset = Post.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class_table = {
+        "list": PostListSerializer,
+        "retrieve": PostRetrieveSerializer,
+    }
+
+    def get_serializer_class():
+        if self.action == 'list':
+            return PostListSerializer
+        elif self.action == 'retrieve':
+            return PostRetrieveSerializer
+        else:
+            return super().get_serializer_class()
